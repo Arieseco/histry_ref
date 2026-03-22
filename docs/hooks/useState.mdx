@@ -1,0 +1,52 @@
+---
+title: useState
+description: コンポーネントに状態変数を追加できるReact Hook。
+---
+
+`useState` は、コンポーネントに状態変数を追加できる React Hook です。
+
+```js
+const [state, setState] = useState(initialState)
+```
+
+## リファレンス
+
+### `useState(initialState)`
+
+コンポーネントのトップレベルで `useState` を呼び出して、状態変数を宣言します。
+
+```js
+import { useState } from 'react'
+
+function MyComponent() {
+  const [age, setAge] = useState(28)
+  const [name, setName] = useState('Taylor')
+  // ...
+}
+```
+
+<Note>
+  配列の分割代入を使って、`[something, setSomething]` のように状態変数を命名するのが慣例です。
+</Note>
+
+## 使い方
+
+### コンポーネントへの状態の追加
+
+```js
+import { useState } from 'react'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      クリック数: {count}
+    </button>
+  )
+}
+```
+
+<Pitfall>
+  `useState` はコンポーネントのトップレベルでのみ呼び出してください。ループや条件文の中では呼び出せません。
+</Pitfall>

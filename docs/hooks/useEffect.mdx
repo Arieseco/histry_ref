@@ -1,0 +1,59 @@
+---
+title: useEffect
+description: コンポーネントを外部システムと同期できるReact Hook。
+---
+
+`useEffect` は、コンポーネントを外部システムと同期できる React Hook です。
+
+```js
+useEffect(setup, dependencies?)
+```
+
+## リファレンス
+
+### `useEffect(setup, dependencies?)`
+
+コンポーネントのトップレベルで `useEffect` を呼び出して、エフェクトを宣言します。
+
+```js
+import { useEffect } from 'react'
+
+function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234')
+
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId)
+    connection.connect()
+    return () => {
+      connection.disconnect()
+    }
+  }, [serverUrl, roomId])
+  // ...
+}
+```
+
+<Note>
+  `useEffect` はレンダリングの後に実行されます。データ取得・購読・DOM操作などの副作用に使いましょう。
+</Note>
+
+## 使い方
+
+### 外部システムへの接続
+
+```js
+import { useEffect } from 'react'
+
+function Timer() {
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log('tick')
+    }, 1000)
+    return () => clearInterval(id)
+  }, [])
+  // ...
+}
+```
+
+<Pitfall>
+  依存配列を省略すると、毎回のレンダリング後にエフェクトが実行されます。意図しない無限ループに注意してください。
+</Pitfall>

@@ -17,6 +17,7 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "rehype-pretty-code": "^0.13.0",
+    "rehype-slug": "^6.0.0",
     "shiki": "^1.6.0",
     "tailwind-merge": "^2.3.0"
   },

@@ -23,11 +23,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
-        {/* サイドバー + メインコンテンツの2カラムレイアウト */}
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <main className="flex-1 p-8 max-w-4xl mx-auto">{children}</main>
+      {/* h-screen + overflow-hidden でビューポート全体を固定し、内部でそれぞれスクロール */}
+      <body className={`${inter.className} h-screen overflow-hidden`}>
+        {/* サイドバー + メインコンテンツの2カラムレイアウト（高さ全体を占有） */}
+        <div className="flex h-full">
+          {/* サイドバー: 固定高さで独立スクロール */}
+          <div className="h-full overflow-y-auto shrink-0">
+            <Sidebar />
+          </div>
+          {/* メインコンテンツ: 残り幅を占有し独立スクロール */}
+          <main className="flex-1 h-full overflow-y-auto p-8">
+            <div className="max-w-4xl mx-auto">{children}</div>
+          </main>
         </div>
       </body>
     </html>

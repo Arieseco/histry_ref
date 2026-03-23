@@ -1,11 +1,14 @@
 import { getMdxContent } from '@/lib/mdx'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Note, Pitfall, Warning } from '@/components/Callout'
+import { CodeBlock } from '@/components/CodeBlock'
 import { notFound } from 'next/navigation'
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
 
 // MDX内で使用できるカスタムコンポーネントのマッピング
-const components = { Note, Pitfall, Warning }
+// pre をコピーボタン付き CodeBlock に差し替える
+const components = { Note, Pitfall, Warning, pre: CodeBlock }
 
 /**
  * docs/ 以下の MDX ファイルを動的に表示するページ
@@ -29,8 +32,9 @@ export default async function Page({
           options={{
             mdxOptions: {
               // rehype-pretty-code でコードブロックにシンタックスハイライトを適用
+              // rehype-slug が見出しに id を付与し、アンカーリンクでの遷移を可能にする
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-              rehypePlugins: [[rehypePrettyCode as any, { theme: 'github-dark' }]],
+              rehypePlugins: [rehypeSlug, [rehypePrettyCode as any, { theme: 'github-dark' }]],
             },
           }}
         />

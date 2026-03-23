@@ -16,18 +16,21 @@ export function Sidebar() {
 
   return (
     // md 以上の画面幅でのみ表示（モバイルでは非表示）
-    <nav className="w-64 shrink-0 border-r border-gray-200 p-6 hidden md:block">
+    <nav className="w-64 border-r border-gray-200 p-6 hidden md:block">
       {/* サイトタイトル（クリックでトップページへ） */}
       <div className="mb-6">
         <Link href="/" className="text-lg font-bold text-gray-900 no-underline">
-          React リファレンス
+          すごいHaskellたのしく学ぼう！
         </Link>
       </div>
       {/* nav.ts のセクション一覧をループして表示 */}
-      {navigation.map((section) => (
-        <div key={section.title} className="mb-6">
-          {/* セクション見出し（例: "Hooks"） */}
-          <h5 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+      {navigation.map((section, index) => (
+        <div key={section.title}>
+          {/* 最初のセクション以外は上に区切り線を表示 */}
+          {index > 0 && <hr className="border-gray-200 my-3" />}
+          <div className="mb-2">
+          {/* セクション見出し */}
+          <h5 className="mb-2 text-xs font-semibold tracking-wide text-gray-500">
             {section.title}
           </h5>
           <ul className="space-y-1">
@@ -48,6 +51,7 @@ export function Sidebar() {
               </li>
             ))}
           </ul>
+          </div>
         </div>
       ))}
     </nav>
